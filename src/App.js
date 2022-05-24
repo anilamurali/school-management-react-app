@@ -8,11 +8,23 @@ import Addfaculty from './Component/Addfaculty';
 import Facultysearch from './Component/Facultysearch';
 import Viewstudent from './Component/Viewstudent';
 import Viewfaculty from './Component/Viewfaculty';
+import Nav from './Component/Nav';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
     <>
-    <Viewfaculty/>
+    <BrowserRouter>
+    <Routes>
+      <Route path='/' exact element={<Addstudent/>}/>
+      <Route path='/stsearch' exact element={<Searchstudent/>}/>
+      <Route path='/stview' exact element={<Viewstudent/>}/>
+      <Route path='/addfaculty' exact element={<Addfaculty/>}/>
+      <Route path='/fsearch' exact element={<Facultysearch/>}/>
+      <Route path='/facultyview' exact element={<Viewfaculty/>}/>
+      
+    </Routes>
+    </BrowserRouter>
     </>
   );
 }
