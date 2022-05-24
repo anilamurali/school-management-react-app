@@ -5,11 +5,12 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import Addstudent from './Component/Addstudent';
 import Searchstudent from './Component/Searchstudent';
 import Addfaculty from './Component/Addfaculty';
+import Facultysearch from './Component/Facultysearch';
 
 function App() {
   return (
     <>
-    <Addfaculty/>
+    <Facultysearch/>
     </>
   );
 }
