@@ -1,4 +1,5 @@
 import React from 'react'
+import Nav from './Nav'
 
 const Viewfaculty = () => {
     var viewfaculty=[
@@ -30,6 +31,7 @@ const Viewfaculty = () => {
     ]
   return (
     <div>
+        <Nav/>
         <div>
             <div>
                 <div class="container">

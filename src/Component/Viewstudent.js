@@ -1,4 +1,5 @@
 import React from 'react'
+import Nav from './Nav'
 
 const Viewstudent = () => {
     var data=[
@@ -42,6 +43,7 @@ const Viewstudent = () => {
     ]
   return (
     <div>
+        <Nav/>
         <div>
             <div>
                 <div class="container">
