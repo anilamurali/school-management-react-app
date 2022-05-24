@@ -7,11 +7,12 @@ import Searchstudent from './Component/Searchstudent';
 import Addfaculty from './Component/Addfaculty';
 import Facultysearch from './Component/Facultysearch';
 import Viewstudent from './Component/Viewstudent';
+import Viewfaculty from './Component/Viewfaculty';
 
 function App() {
   return (
     <>
-    <Viewstudent/>
+    <Viewfaculty/>
     </>
   );
 }
