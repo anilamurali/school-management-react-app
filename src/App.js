@@ -6,11 +6,12 @@ import Addstudent from './Component/Addstudent';
 import Searchstudent from './Component/Searchstudent';
 import Addfaculty from './Component/Addfaculty';
 import Facultysearch from './Component/Facultysearch';
+import Viewstudent from './Component/Viewstudent';
 
 function App() {
   return (
     <>
-    <Facultysearch/>
+    <Viewstudent/>
     </>
   );
 }
