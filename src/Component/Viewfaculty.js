@@ -1,34 +1,33 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useState } from 'react'
 import Nav from './Nav'
 
 const Viewfaculty = () => {
-    var viewfaculty=[
-        {
-            
-            "name":"biji",
-            "Eduction":"ma malayalam",
-            "mobile":"9961309450",
-            "address":"zzz viilla",
-            "pincode":"789645",
-            "district":"kollam"
+    var [viewfaculty,setViewfacultyt]=useState([])
+    var [loadstatus,setLoadstatus]=useState(true)
+    axios.get("http://localhost:4500/api/viewfaculty").then(
+        (response)=>{
+            console.log(response.data)
+            setViewfacultyt(response.data)
+            setLoadstatus(false)
+        }
+    )
+    const deleteFacultyApi=(id)=>{
+        var data={"_id":id}
+        console.log(id)
+        axios.post("http://localhost:4500/api/facultydelete",data).then((response)=>{
+            if(response.data.status=="success"){
+                alert("Successfully deletd")
 
-        },
-        {"name":"ravi",
-        "Eduction":"MSc chemestry",
-        "mobile":"996190876450",
-        "address":"aa viilla",
-        "pincode":"789645",
-        "district":"kottayam"
-    },
-    {"name":"unni",
-    "Eduction":"MCA",
-    "mobile":"9961309450",
-    "address":"UU viilla",
-    "pincode":"780645",
-    "district":"trivandrom"
+            }
+            else{
+                alert("Error in deletion")
+
+            }
+        })
 
     }
-    ]
+
   return (
     <div>
         <Nav/>
@@ -45,24 +44,30 @@ const Viewfaculty = () => {
                                          <th scope="col">MOBILE</th>
                                          <th scope="col">ADDRESS</th>
                                          <th scope="col">PINCODE</th>
-                                         <th scope="col">DISTRICT</th>                                         
+                                         <th scope="col">DISTRICT</th>
+                                         <th scope="col">DELETE</th> 
                                          </tr>
                                          </thead>
+                                         {loadstatus ?  <div class="spinner-border" role="status">
+                  <span class="sr-only">Loading...</span>
+                   </div>:
                                          <tbody>
                                                   {
                                                    viewfaculty.map((value,key)=>{
                                                         return <tr>
-                                                        <th><p class="card-text">{value.name}</p></th>
-                                                        <td><p class="card-text">{value.Eduction}</p></td>
-                                                        <td><p class="card-text">{value.mobile}</p></td>
-                                                        <td><p class="card-text">{value.address}</p></td>
+                                                        <th><p class="card-text">{value.fname}</p></th>
+                                                        <td><p class="card-text">{value.education}</p></td>
+                                                        <td><p class="card-text">{value.fmobile}</p></td>
+                                                        <td><p class="card-text">{value.faddress}</p></td>
                                                         <td><p class="card-text">{value.pincode}</p></td>
                                                         <td><p class="card-text">{value.district}</p></td>
-                                                
+                                                        <td><button onClick={ ()=>{deleteFacultyApi(value._id)}} className='btn btn-danger'>DELETE</button></td>
+                                    
 
                                                         </tr>
                                                     })}
                                                     </tbody>
+}
                                                     </table>
                                                 </div>
                                             </div>
@@ -70,7 +75,6 @@ const Viewfaculty = () => {
                                 </div>
                             </div>
                     </div>
-  )
-}
+  )}
 
 export default Viewfaculty

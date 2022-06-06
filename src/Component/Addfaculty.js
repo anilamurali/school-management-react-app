@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 import Nav from './Nav'
 
@@ -9,8 +10,17 @@ const Addfaculty = () => {
     var [pincode,setpincode]=useState("")
     var [district,setDistrict]=useState("")
     const setData=()=>{
-        var data={"name":name,"education":edu,"mobile":mobile,"address":address,"pincode":pincode,"district":district}
+        var data={"fname":name,"education":edu,"fmobile":mobile,"faddress":address,"pincode":pincode,"district":district}
         console.log(data)
+        axios.post("http://localhost:4500/api/addfaculty",data).then((response)=>{
+            console.log(response.data)
+                if(response.data.status=="success"){
+                    alert("Successfully Added")
+                }
+                else{
+                    alert("Something went Wrong!")
+                }
+        })
     }
   return (
     <div>

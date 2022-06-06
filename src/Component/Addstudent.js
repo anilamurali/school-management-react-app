@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 import Nav from './Nav'
 
@@ -10,8 +11,17 @@ const Addstudent = () => {
     var [mobile,setMobile]=useState("")
     var [address,setAddress]=useState("")
     const setData=()=>{
-        var data={"admno":admno,"rollno":rollno,"name":name,"std":std,"pname":pname,"mobile":mobile,"address":address}
+        var data={"admno":admno,"rollno":rollno,"name":name,"standard":std,"parentname":pname,"mobile":mobile,"address":address}
         console.log(data)
+        axios.post("http://localhost:4500/api/addstudent",data).then((response)=>{
+            console.log(response.data)
+                if(response.data.status=="success"){
+                    alert("Successfully Added")
+                }
+                else{
+                    alert("Something went Wrong!")
+                }
+        })
     }
 
     return (

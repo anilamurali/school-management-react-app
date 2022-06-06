@@ -1,46 +1,32 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useState } from 'react'
 import Nav from './Nav'
 
 const Viewstudent = () => {
-    var data=[
-        {
-            "admno":"MZC01",
-            "rollno":"1",
-            "name":"Anila",
-            "class":"10A",
-            "pname":"Murali Dharan",
-            "mobile":"9961309450",
-            "address":"Thadathil veedu",
-
-        },
-        {"admno":"MZC02",
-        "rollno":"2",
-        "name":"Anju",
-        "class":"10B",
-        "pname":"Ajith kumar",
-        "mobile":"9988772241",
-        "address":"anju villa",
-
-    },
-    {"admno":"MZC03",
-        "rollno":"3",
-        "name":"Lekshmi",
-        "class":"10B",
-        "pname":"Sreenivasan",
-        "mobile":"9029375213",
-        "address":"Lachu villa",
-
-    },
-    {"admno":"MZC04",
-        "rollno":"4",
-        "name":"Anju",
-        "class":"10B",
-        "pname":"Manoj kumar",
-        "mobile":"7812348567",
-        "address":"Vani villa",
-
-    }
-    ]
+    var [viewstudent,setstudent]=useState([])
+  var [loadstatus,setLoadstatus]=useState(true)
+        axios.get("http://localhost:4500/api/viewstudent").then(
+            (response)=>{
+                console.log(response.data)
+                setstudent(response.data)
+                setLoadstatus(false)
+    
+            }
+        )
+        const deleteStudentApi=(id)=>{
+            var data={"_id":id}
+            console.log(data)
+            axios.post("http://localhost:4500/api/studentdelete",data).then(
+                (response)=>{
+                if(response.data.status=="success")
+                {
+                    alert("Successsfully deleted")
+                }
+                else{
+                    alert("Error in deletion")
+                }
+            })
+        }
   return (
     <div>
         <Nav/>
@@ -59,24 +45,31 @@ const Viewstudent = () => {
                                          <th scope="col">PARENT NAME</th>
                                          <th scope="col">MOBILE</th>
                                          <th scope="col">ADDRESS</th>
+                                         <th scope="col">DELETE</th>
                                          
                                          </tr>
                                          </thead>
+                                         {loadstatus ?  <div class="spinner-border" role="status">
+                                                 <span class="sr-only">Loading...</span>
+                                                    </div>:
                                          <tbody>
                                                   {
-                                                   data.map((value,key)=>{
+                                                   viewstudent.map((value,key)=>{
                                                         return <tr>
-                                                        <th><p class="card-text">{value.admno}</p></th>
-                                                        <td><p class="card-text">{value.rollno}</p></td>
-                                                        <td><p class="card-text">{value.name}</p></td>
-                                                        <td><p class="card-text">{value.class}</p></td>
-                                                        <td><p class="card-text">{value.pname}</p></td>
-                                                        <td><p class="card-text">{value.mobile}</p></td>
-                                                        <td><p class="card-text">{value.address}</p></td>
+                                                        <th>{value.admno}</th>
+                                                        <td>{value.rollno}</td>
+                                                        <td>{value.name}</td>
+                                                        <td>{value.class}</td>
+                                                        <td>{value.parentname}</td>
+                                                        <td>{value.mobile}</td>
+                                                        <td>{value.address}</td>
+                                                        <td><button onClick={ ()=>{deleteStudentApi(value._id)}} className='btn btn-danger'>DELETE</button></td>
+
 
                                                         </tr>
                                                     })}
                                                     </tbody>
+}
                                                     </table>
                                                 </div>
                                             </div>
